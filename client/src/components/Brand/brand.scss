@@ -1,0 +1,19 @@
+.brand-text{
+    width: 50%;
+    margin: auto;
+    border: solid 2px var(--terciario);
+    background-color: var(--dos);
+    border-radius: 15px;
+    margin-top: 2rem;
+    p{
+        width: 80%;
+        color: var(--terciario);
+        margin: auto;
+        padding: 1rem 0;
+
+        text-align: center;
+        letter-spacing: .3ch;
+        line-height: 3ch;
+    }
+
+}

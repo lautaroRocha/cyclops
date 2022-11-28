@@ -1,0 +1,152 @@
+h2 {
+  color: var(--terciario);
+  font-size: clamp(1.5rem, 10vw, 2.5rem); }
+
+.cart {
+  display: flex;
+  flex-direction: column;
+  width: 90%; }
+  .cart .cart-head {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 1rem;
+    opacity: .7; }
+    .cart .cart-head h3 {
+      color: var(--clear); }
+  .cart .cart-body {
+    width: 100%;
+    height: 85%;
+    margin: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow: hidden;
+    padding: 1rem; }
+  .cart .cart-foot {
+    background-color: var(--tres-trans);
+    width: 60%;
+    margin: 0 auto 5rem;
+    transform: skewX(-15deg);
+    height: 1rem;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    overflow: visible; }
+    .cart .cart-foot h5 {
+      text-transform: uppercase;
+      text-transform: capitalize;
+      font-size: 2rem;
+      height: 100%;
+      color: var(--terciario);
+      position: absolute;
+      top: -15px;
+      filter: drop-shadow(-3px 3px 1px var(--clear)); }
+    .cart .cart-foot span {
+      position: absolute;
+      right: 0;
+      font-weight: bolder;
+      color: var(--terciario);
+      font-size: 1.5rem;
+      top: -10px;
+      filter: drop-shadow(-3px 3px 1px var(--clear)); }
+      .cart .cart-foot span:before {
+        content: "$"; }
+  .cart .btn-one {
+    width: fit-content;
+    margin: -3rem auto 0;
+    color: var(--clear);
+    background-color: var(--terciario-trans);
+    border: none;
+    padding: 1rem;
+    border-radius: 15px; }
+
+.client-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  overflow: hidden;
+  width: 90%;
+  text-align: center;
+  color: var(--clear); }
+  .client-data form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem; }
+    .client-data form div {
+      display: flex; }
+    .client-data form label {
+      display: flex;
+      flex-direction: column; }
+      .client-data form label input, .client-data form label select {
+        padding: 5px;
+        border-radius: 15px;
+        width: 90%;
+        margin: 0 auto; }
+    .client-data form .client-card {
+      width: 250px;
+      height: 150px;
+      background: #2807d6;
+      background: -moz-linear-gradient(332deg, #2807d6 27%, #a3bddb 100%);
+      background: -webkit-linear-gradient(332deg, #2807d6 27%, #a3bddb 100%);
+      background: linear-gradient(332deg, #2807d6 27%, #a3bddb 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2807d6",endColorstr="#a3bddb",GradientType=1);
+      border-radius: 25px;
+      margin: 1rem auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      font-family: 'Courier New', Courier, monospace;
+      text-transform: uppercase; }
+      .client-data form .client-card .client-card-name {
+        display: flex;
+        width: 90%;
+        gap: 1rem;
+        text-transform: uppercase;
+        margin-top: 1rem; }
+      .client-data form .client-card .client-card-numbers {
+        display: flex;
+        width: 90%;
+        gap: 2rem; }
+        .client-data form .client-card .client-card-numbers p, .client-data form .client-card .client-card-numbers span {
+          position: relative; }
+    .client-data form .client-card-data {
+      display: flex;
+      justify-content: center;
+      width: 90%;
+      margin-bottom: 1rem; }
+      .client-data form .client-card-data label {
+        width: 80%; }
+        .client-data form .client-card-data label input {
+          border-radius: 5px; }
+      .client-data form .client-card-data #card-exp {
+        width: 20%; }
+
+.client-end {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around; }
+  .client-end h1 {
+    color: var(--clear); }
+  .client-end a {
+    width: fit-content;
+    color: var(--clear);
+    background-color: var(--terciario-trans);
+    border: none;
+    padding: 1rem;
+    border-radius: 15px;
+    text-decoration: none; }
+
+button {
+  width: fit-content;
+  color: var(--clear);
+  background-color: var(--terciario-trans);
+  border: none;
+  padding: 1rem;
+  border-radius: 15px;
+  text-decoration: none; }

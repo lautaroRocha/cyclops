@@ -1,0 +1,107 @@
+.cart-item{
+    display: flex;
+    background-color: var(--terciario-trans);
+    width: 90%;
+    max-width: 1200px;
+    height: 1rem;
+    justify-content: space-around;
+    align-content: center;
+    text-align: center;
+    transform: skewX(-15deg);
+    margin: 1rem auto;
+    h4{
+        text-transform: capitalize;
+        font-size: 1.5rem;
+        height: 100%;
+        position: relative;
+        color: var(--clear);
+        display: flex;
+        flex-wrap: wrap;
+        width: 5ch;
+        height: auto;
+        top: -20px;
+        left: 5vw;
+        line-height: 1.8ch;
+        filter: drop-shadow(-3px 3px 1px var(--dos));
+    }
+    div{
+        flex:1;
+        display: flex;
+        position: relative;
+    }
+    div:hover{
+        .cart-btn{
+            display: block;
+        }
+    }
+    span{
+        margin: 0 auto;
+        font-size: 1.5rem;
+        font-weight: bolder;
+        position: relative;
+        color: var(--clear);
+        top: -10px;
+        left: 5vw;
+        width: 33.3%;
+        text-align: center;
+        margin-left: auto;
+        filter: drop-shadow(-3px 3px 1px var(--dos));
+    }
+    .cart-btn{
+        position: absolute;
+        display: none;
+        cursor: pointer;
+    }
+    .add{
+        left: 8vw;
+    }
+    .take{
+        right: -13vw;
+        &:before{
+            content: "";
+        }
+    }
+    .price-tag{
+        left: -5px;
+        &::before{
+        content: '$';
+    }
+    }
+}
+@media(min-width:500px){
+    .cart-item{
+        width: 80%;
+        h4{
+            left: 3vw;
+        }
+        .add{
+            left: 15vw;
+        }
+        .take{
+            right: -20vw;
+        }
+        span{
+            left: 10vw;
+        }
+        span:last-of-type{
+            left: 10vw;
+        }
+    }
+}
+@media(min-width:900px){
+    .cart-item{
+        width: 80%;
+        h4{
+            left: 3vw;
+        }
+        .add{
+            left: 20vw;
+        }
+        .take{
+            right: -23vw;
+        }
+        span{
+            left: 13vw;
+        }
+    }
+}

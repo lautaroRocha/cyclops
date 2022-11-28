@@ -1,0 +1,138 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --back:rgb(15, 17, 20);
+    --trans-back: rgba(111, 111, 111, 0.3);
+    --clear: #ffffff;
+    --dos: #343f3f;
+    --tres: #677e81;
+    --tres-trans: rgba(103, 126, 129, .6);
+    --terciario : #ff2020; 
+    --terciario-trans: rgba(255, 32, 32, .6);
+
+    overflow-x: hidden;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#root{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+}
+
+html{
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    background-color: var(--back);
+  }
+
+  .wrapper{
+    width: 100%;
+    max-width: 1800px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top:0;
+    min-height: 100vh;
+    height: 100%;
+    padding-top: 22vh;
+  }
+
+  .glass{
+    background: hsla(0, 100%, 56%, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.4px);
+    -webkit-backdrop-filter: blur(15.4px);
+    border: 1px solid rgba(255, 32, 32, 0.6);
+    &:is(li):hover{
+      background: hsla(6, 100%, 70%, 0.5);
+    }
+    &:is(li):active{
+      background: hsla(6, 100%, 30%, 0.5);
+    }
+  }
+
+  .back-img{
+    background-image: url("../utilities/221011125747-01-british-cycling-shell.jpg"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 100vh; /* You must set a specified height */
+    width: 100%;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    z-index: -2000;
+    opacity: .09;
+    position: absolute;
+    top: 0vh;
+  }
+  .back-img-2{
+    background-image: url("../utilities/Giro_d\'Italia_2021\,_Stage_15.jpg"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 100vh; /* You must set a specified height */
+    width: 100%;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    z-index: -2000;
+    opacity: .09;
+    position: absolute;
+    top: 100vh;
+  }
+  .back-img-3{
+    background-image: url("../utilities/q36-5-cycling-clothing-1.jpg"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 100%; /* You must set a specified height */
+    width: 100%;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    z-index: -2000;
+    opacity: .09;
+    position: absolute;
+    top: 0;
+  }
+  .back-img-4{
+    background-image: url("../utilities/221011125747-01-british-cycling-shell.jpg"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 100vh; /* You must set a specified height */
+    width: 100%;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    z-index: -2000;
+    opacity: .09;
+    position: absolute;
+    top: 100vh;
+  }
+  .back-img-5{
+    background-image: url("../utilities/Giro_d\'Italia_2021\,_Stage_15.jpg"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 110vh; /* You must set a specified height */
+    width: 100%;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+    z-index: -2000;
+    opacity: .10;
+    position: absolute;
+    top: 0vh;
+  }
+
+  ::-webkit-scrollbar{
+    width: 0px;
+    }
+
+    .toast{
+      background-color: var(--back);
+      color: var(--clear);
+    }

@@ -1,0 +1,69 @@
+[  { 
+    "title": "ruta 720",
+    "img": "https://cdn.bbike-cdn.com.cn/benelli.bike/media/34814/conversions/e3906517aeadb015e4779095f0e78589-md.png",
+    "price": 140000,
+    "type" : "Bicicletas",
+    "quantity" : 1,
+    "id" : 1
+},
+{
+    "title": "urbana 620",
+    "img": "https://cdn.shopify.com/s/files/1/0275/2426/8118/products/S35408M10SM_700M_SuperSport-BLK_1200x.png?v=1633410116",
+    "price": 100000,
+    "type" : "Bicicletas",
+    "quantity" : 1,
+    "id" : 2
+}, 
+{
+    "title": "aero 360",
+    "img": "https://d2d22nphq0yz8t.cloudfront.net/4190f681-07cb-43aa-92d2-6096b01e7b62/https://www.ribblecycles.co.uk/img/705/705/resize/catalog/product/u/l/ultra_sl_pro_ultegra_di2_side_on_1.png/mxw_640,f_auto",
+    "price": 23000,
+    "type" : "Bicicletas",
+    "quantity" : 1,
+    "id" : 3
+},
+    { 
+    "title": "tria Lumos",
+    "img": "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1625857186-Lumos-Ultra-CharcoalBlack-1.png",
+    "price": 10000,
+    "type" : "Cascos",
+    "quantity" : 1,
+    "id" : 4
+},{
+    "title": "urban Wrr",
+    "img": "https://cdn.shopify.com/s/files/1/0027/9379/9739/products/Macon-2.0-MIPS-Matte-Black-1_75f6f0ab-d69d-4eb3-962c-305253768e7f_300x300.png?v=1664512772",
+    "price": 7000,
+    "type" : "Cascos",
+    "quantity" : 1,
+    "id" : 5
+}, {
+    "title": "mthelm",
+    "img": "https://cdn.shopify.com/s/files/1/0032/9023/4992/products/HB18-FFMBLGMIPS_01_df7769e8-1077-4f15-91fb-b311fff5b6d4.png?v=1622793707&width=2048",
+    "price": 12000,
+    "type" : "Cascos",
+    "quantity" : 1,
+    "id" : 6
+},
+{ 
+    "title": "jersey 101",
+    "img": "https://www.spized.com/media/9d/6c/45/1639577788/radtrikot6-min.png",
+    "price": "14000",
+    "type" : "Indumentaria",
+    "quantity" : 1,
+    "id" : 7
+},{
+    "title": "kit badana",
+    "img": "https://d3ugyf2ht6aenh.cloudfront.net/stores/001/312/744/products/calza-ciclista-diadora-con-badana-protectoramedia-ciclista1-bb71a762abad79871216039319050221-1024-1024.png",
+    "price": 9000,
+    "type" : "Indumentaria",
+    "quantity" : 1,
+    "id" : 8
+}, {
+    "title": "giyo clipless",
+    "img": "https://cdn.shopify.com/s/files/1/0251/7309/8543/products/Shoe1_2000x.png?v=1617736229",
+    "price": 32000 ,
+    "type" : "Indumentaria",
+    "quantity" : 1,
+    "id" : 9
+}
+]

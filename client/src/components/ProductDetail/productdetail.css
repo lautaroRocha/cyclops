@@ -1,0 +1,83 @@
+@keyframes levitate {
+  0% {
+    transform: scale(2.3) rotate(-75deg); }
+  50% {
+    transform: scale(2.4) rotate(-75deg); }
+  100% {
+    transform: scale(2.3) rotate(-75deg); } }
+
+.detail {
+  width: 90%;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
+  .detail .detail-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 1rem;
+    width: 100%; }
+    .detail .detail-col .detail-blob {
+      text-decoration: none;
+      color: var(--back);
+      display: flex;
+      align-items: center;
+      width: 40vw;
+      height: 40vh;
+      border-radius: 70% 25px;
+      transition: all .5s ease-in-out;
+      position: relative;
+      transform: rotate(75deg); }
+      .detail .detail-col .detail-blob img {
+        position: absolute;
+        right: -30px;
+        width: 80%;
+        height: auto;
+        animation: levitate 5s infinite;
+        max-width: 30vw; }
+      .detail .detail-col .detail-blob h2 {
+        position: absolute;
+        left: -100px;
+        transform: scale(1.5) rotate(-75deg);
+        color: var(--clear);
+        opacity: .8;
+        letter-spacing: .5ch; }
+    .detail .detail-col span {
+      color: var(--clear);
+      opacity: .8;
+      margin-top: -20vh;
+      font-size: clamp(1rem, 10vw, 3rem);
+      letter-spacing: .5ch; }
+      .detail .detail-col span:before {
+        content: "$";
+        font-weight: bolder; }
+    .detail .detail-col .detail-actions {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 1rem;
+      height: auto;
+      width: 70%; }
+      .detail .detail-col .detail-actions a, .detail .detail-col .detail-actions button {
+        text-decoration: none;
+        color: var(--clear);
+        display: flex;
+        padding: 1rem;
+        border-radius: 25px;
+        font-size: 1rem; }
+
+@media (min-width: 900px) {
+  .detail {
+    flex-direction: row; }
+    .detail .detail-col {
+      width: 50%; }
+      .detail .detail-col .detail-blob {
+        width: 25vw; }
+        .detail .detail-col .detail-blob img {
+          left: 100px;
+          max-width: 10vw;
+          max-height: 20vh; } }
