@@ -85,8 +85,14 @@ const AdminPanel = () => {
               'Content-Type': 'application/json'
             },
           })
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
+          .then( (response) => {
+            if (!response.ok){
+              const res = response.json()
+              .then( (res) => console.log(res.message))
+            }else{
+              console.log('ok')
+            }
+          })
     }
 
     let selectedView;

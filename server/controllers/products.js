@@ -64,10 +64,10 @@ async function updateOneProduct(req, res){
                 await Product.updateOne({_id: id}, {[editAttribute] : newValue})
                 res.json({ message: 'Producto editado'})
             }catch(err){
-                res.json({message : err.message})
+                res.status(400).json({message : err.message})
             }
         }else{
-            res.json({message : 'El precio mínimo es de $1000'})
+            res.status(400).json({message : 'El precio mínimo es de $1000'})
         }
     }
 }
