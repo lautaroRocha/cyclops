@@ -35,7 +35,7 @@ const orderSchema = new mongoose.Schema({
     date: {
         type : Object,
         required: false,
-        default: new Date()
+        default: new Date().toJSON()
     }
 })
 
