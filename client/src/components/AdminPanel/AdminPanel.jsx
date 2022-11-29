@@ -18,7 +18,7 @@ const AdminPanel = () => {
         fetch('http://localhost:5000/admin')
         .then(res => res.json())
         .then(data => setProducts(data))
-    },[view, addNewProduct])
+    },[sendtoDB, removeFromDB])
 
     useEffect(()=>{
         fetch('http://localhost:5000/admin-orders')
@@ -27,35 +27,41 @@ const AdminPanel = () => {
     },[])
 
 
-
     function addNewProduct(e) {
         e.preventDefault();
         const newProduct = {
             "title": title.current.value,
             "img": imgLink.current.files,
-            "price": price.current.value,
+            "price": parseInt(price.current.value),
             "type": type.current.value
         };
-        console.log(newProduct.img)
+        // console.log(newProduct.img)
         sendtoDB(newProduct);
-        title.current.value = "";
-        imgLink.current.value = "";
-        price.current.value = "";
-        type.current.value= ""
+        // title.current.value = "";
+        // imgLink.current.value = "";
+        // price.current.value = "";
+        // type.current.value= ""
     }
 
     function sendtoDB(obj) {
         fetch('http://localhost:5000/admin', { 
             method: 'POST',
             headers: {
-              'Accept': 'application/json, text/plain, */*',
+              'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(obj)
           })
-          .then(res => console.log('Producto añadido a la base de datos'))
-          .catch(err => console.log(err.message));
+          .then( (response) => {
+            if (!response.ok){
+              const res = response.json()
+              .then( (res) => console.log(res))
+            }else{
+              console.log('ok')
+            }
+          })
     }
+
 
     function removeFromDB(_id) {
         fetch(`http://localhost:5000/admin/${_id}`, { 

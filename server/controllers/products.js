@@ -9,12 +9,8 @@ async function addProduct(req, res){
         type: req.body.type,
         quantity: req.body.quantity
     })
-    try{
-        const newProduct = await product.save()
-        res.status(201).json({newProduct : newProduct})
-    }catch (err){
-        res.status(400).json({message : err.message})
-    }
+    product.save();
+    res.json(product);
 }
 
 //READ
