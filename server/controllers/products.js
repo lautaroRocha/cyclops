@@ -53,10 +53,10 @@ async function updateOneProduct(req, res){
                 await Product.updateOne({_id: id}, {[editAttribute] : newValue})
                 res.json({ message: 'Producto editado'})
             }catch(err){
-                res.json({message : err.message})
+                res.status(400).json({message : err.message})
             }
             }else{
-                res.json({message :'El nombre debe tener como mínimo 5 caracteres'})
+                res.status(400).json({message :'El nombre debe tener como mínimo 5 caracteres'})
             }
     }else{
         if(newValue > 1000){
@@ -79,7 +79,7 @@ async function deleteOneProduct(req, res) {
         await Product.remove({ _id: id });
         res.json({ 'message': 'Datos Eliminados' });
     }catch(err){
-        res.json({message : err.message})
+        res.status(404).json({message : err.message})
     }
    
 }
@@ -91,7 +91,7 @@ async function deleteMultipleProducts(req, res){
         await Product.deleteMany({[attribute] : value})
         res.json({ message: 'Productos eliminados'})
     }catch(err){
-        res.json({message : err.message})
+        res.status(400).json({message : err.message})
     }
 }
 

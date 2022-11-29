@@ -31,7 +31,7 @@ const AdminProductsView = (props) => {
             {props.products !== null ? props.products.map((prod)=>{
                 return(
                 <div className="rep-prod" key={prod._id}>
-                    <span>{prod.title}</span>
+                    <span id="title" onClick={(e)=>{props.editValue(e)}}>{prod.title}</span>
                     <span id="price" onClick={(e)=>{props.editValue(e)}}>{prod.price}</span>
                     <span>{prod.type}</span>
                     <span id="id" onClick={(e)=>{props.removeFromDB(e.target.textContent)}}>{prod._id}</span>

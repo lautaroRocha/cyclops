@@ -76,9 +76,10 @@ const AdminPanel = () => {
     }
 
     function editValue(e){
-        const value = prompt('Ingrese el nuevo precio')
+        const attribute = e.target.id;
+       const value = prompt('Ingrese el nuevo valor')
         const _id = e.target.parentElement.lastChild.textContent;
-        fetch(`http://localhost:5000/admin/${_id}/price/${value}`, { 
+        fetch(`http://localhost:5000/admin/${_id}/${attribute}/${value}`, { 
             method: 'PATCH',
             headers: {
               'Accept': 'application/json, text/plain, */*',
@@ -90,7 +91,7 @@ const AdminPanel = () => {
               const res = response.json()
               .then( (res) => console.log(res.message))
             }else{
-              console.log('ok')
+              console.log('ok');
             }
           })
     }
