@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema({
         required: false,
         default: 1
     }
-},{collection : 'products'})
+})
 
 
 const ValidateUser = (req, res, next) => {
@@ -55,5 +55,6 @@ const ValidateUser = (req, res, next) => {
     });
 }
 
+const Product = mongoose.model('products', productSchema)
 
-module.exports = mongoose.model('Product', productSchema)
+module.exports = {Product, ValidateUser};

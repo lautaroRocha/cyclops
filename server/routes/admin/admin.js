@@ -1,5 +1,6 @@
 const handleProducts = require('../../controllers/products')
 const adminRouter = require('express').Router(); 
+const validateProduct = require('../../models/product')
 
 adminRouter.get('/', handleProducts.getAllProducts)
 
