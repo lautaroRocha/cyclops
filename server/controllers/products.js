@@ -51,13 +51,29 @@ async function updateOneProduct(req, res){
     const id = req.params.id;
     const editAttribute = req.params.attr
     const newValue = req.params.value
-    try{
-        await Product.updateOne({_id: id}, {[editAttribute] : newValue})
-        res.json({ message: 'Producto editado'})
-    }catch(err){
-        res.json({message : err.message})
+    if(editAttribute !== "price"){
+        if(newValue.length > 5){
+            try{
+                await Product.updateOne({_id: id}, {[editAttribute] : newValue})
+                res.json({ message: 'Producto editado'})
+            }catch(err){
+                res.json({message : err.message})
+            }
+            }else{
+                res.json({message :'El nombre debe tener como mínimo 5 caracteres'})
+            }
+    }else{
+        if(newValue > 1000){
+            try{
+                await Product.updateOne({_id: id}, {[editAttribute] : newValue})
+                res.json({ message: 'Producto editado'})
+            }catch(err){
+                res.json({message : err.message})
+            }
+        }else{
+            res.json({message : 'El precio mínimo es de $1000'})
+        }
     }
-  
 }
 
 //DELETE
