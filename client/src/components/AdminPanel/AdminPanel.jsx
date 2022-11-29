@@ -18,7 +18,7 @@ const AdminPanel = () => {
         fetch('http://localhost:5000/admin')
         .then(res => res.json())
         .then(data => setProducts(data))
-    },[view, addNewProduct])
+    },[sendtoDB, removeFromDB])
 
     useEffect(()=>{
         fetch('http://localhost:5000/admin-orders')
@@ -27,17 +27,16 @@ const AdminPanel = () => {
     },[])
 
 
-
     function addNewProduct(e) {
         e.preventDefault();
         const newProduct = {
             "title": title.current.value,
             "img": imgLink.current.files,
-            "price": price.current.value,
+            "price": parseInt(price.current.value),
             "type": type.current.value
         };
-        console.log(newProduct.img)
-        // sendtoDB(newProduct);
+        // console.log(newProduct.img)
+        sendtoDB(newProduct);
         // title.current.value = "";
         // imgLink.current.value = "";
         // price.current.value = "";
@@ -48,14 +47,21 @@ const AdminPanel = () => {
         fetch('http://localhost:5000/admin', { 
             method: 'POST',
             headers: {
-              'Accept': 'application/json, text/plain, */*',
+              'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(obj)
           })
-          .then(res => console.log('Producto añadido a la base de datos'))
-          .catch(err => console.log(err.message));
+          .then( (response) => {
+            if (!response.ok){
+              const res = response.json()
+              .then( (res) => console.log(res.message))
+            }else{
+              console.log('ok')
+            }
+          })
     }
+
 
     function removeFromDB(_id) {
         fetch(`http://localhost:5000/admin/${_id}`, { 
@@ -70,17 +76,24 @@ const AdminPanel = () => {
     }
 
     function editValue(e){
-        const value = prompt('Ingrese el nuevo precio')
+        const attribute = e.target.id;
+       const value = prompt('Ingrese el nuevo valor')
         const _id = e.target.parentElement.lastChild.textContent;
-        fetch(`http://localhost:5000/admin/${_id}/price/${value}`, { 
+        fetch(`http://localhost:5000/admin/${_id}/${attribute}/${value}`, { 
             method: 'PATCH',
             headers: {
               'Accept': 'application/json, text/plain, */*',
               'Content-Type': 'application/json'
             },
           })
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
+          .then( (response) => {
+            if (!response.ok){
+              const res = response.json()
+              .then( (res) => console.log(res.message))
+            }else{
+              console.log('ok');
+            }
+          })
     }
 
     let selectedView;

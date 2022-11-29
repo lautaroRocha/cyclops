@@ -67,5 +67,23 @@ form{
         display: block;
         cursor: pointer;
     }
+    }
+    #title{
+        &:after{
+           content: "EDITAR";
+           position: absolute;
+           left: 0;
+           right: 0;
+           top: 0;
+           width: 100%;
+           color: green;
+           background-color: white;
+           font-weight: bolder;
+           display: none;
+       }
+       &:hover:after{
+           display: block;
+           cursor: pointer;
+       }
 }
 }
