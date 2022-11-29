@@ -18,7 +18,7 @@ const AdminPanel = () => {
         fetch('http://localhost:5000/admin')
         .then(res => res.json())
         .then(data => setProducts(data))
-    },[view, sendtoDB, removeFromDB])
+    },[])
 
     useEffect(()=>{
         fetch('http://localhost:5000/admin-orders')
@@ -35,8 +35,13 @@ const AdminPanel = () => {
             "price": parseInt(price.current.value),
             "type": type.current.value
         };
+        const formData  = new FormData();   
+        formData.append("title",title.current.value)
+        formData.append("img", imgLink.current.files[0])
+        formData.append("price", parseInt(price.current.value));
+        formData.append("type", type.current.value)   
         console.log(newProduct)
-        sendtoDB(newProduct);
+        sendtoDB(formData);
         // title.current.value = "";
         // imgLink.current.value = "";
         // price.current.value = "";
@@ -46,16 +51,13 @@ const AdminPanel = () => {
     function sendtoDB(obj) {
         fetch('http://localhost:5000/admin', { 
             method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(obj)
+            body: obj
           })
           .then( (response) => {
             if (!response.ok){
               const res = response.json()
-              .then( (res) => console.log(res.message))
+              console.log(res)
+            //  .then( (res) => console.log(res.message))
             }else{
               console.log('ok')
             }

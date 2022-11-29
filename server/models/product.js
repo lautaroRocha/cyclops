@@ -5,7 +5,6 @@ const validateRequest = require('../middleware/validateRequest')
 const productSchema = new mongoose.Schema({
     title:{
         type: String,
-        unique : true,
         required: true
     },
     img:{
