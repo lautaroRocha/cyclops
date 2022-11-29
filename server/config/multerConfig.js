@@ -12,13 +12,13 @@ const multerStorage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-    const filetypes = /png/;
+    const filetypes = /png|webp/;
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
     const mimetype = filetypes.test(file.mimetype);
     if (mimetype && extname) {
         return cb(null, true);
     } else {
-        cb('Error: Images Only!');
+        cb('Error: PNG and WEBp Only!');
     }
 }
 const uploadMulter = multer({

@@ -18,7 +18,7 @@ const AdminPanel = () => {
         fetch('http://localhost:5000/admin')
         .then(res => res.json())
         .then(data => setProducts(data))
-    },[sendtoDB, removeFromDB])
+    },[view, sendtoDB, removeFromDB])
 
     useEffect(()=>{
         fetch('http://localhost:5000/admin-orders')
@@ -31,11 +31,11 @@ const AdminPanel = () => {
         e.preventDefault();
         const newProduct = {
             "title": title.current.value,
-            "img": imgLink.current.files,
+            "img": imgLink.current.files[0],
             "price": parseInt(price.current.value),
             "type": type.current.value
         };
-        // console.log(newProduct.img)
+        console.log(newProduct)
         sendtoDB(newProduct);
         // title.current.value = "";
         // imgLink.current.value = "";

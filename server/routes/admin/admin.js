@@ -6,7 +6,7 @@ const uploadMulter = require("../../config/multerConfig");
 
 adminRouter.get('/', handleProducts.getAllProducts)
 
-adminRouter.post('/',[uploadMulter.single('image'), ValidateProduct], handleProducts.addProduct)
+adminRouter.post('/',[uploadMulter.single('img'), ValidateProduct], handleProducts.addProduct)
 
 adminRouter.patch('/:id/:attr/:value', ValidateRequest, handleProducts.updateOneProduct)
 

@@ -7,6 +7,9 @@ form {
   gap: 1rem; }
   form input, form select {
     width: 100%; }
+  form #img {
+    color: var(--clear);
+    font-weight: bolder; }
 
 .rep-prod-cont {
   width: 90%;

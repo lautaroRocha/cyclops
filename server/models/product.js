@@ -5,6 +5,7 @@ const validateRequest = require('../middleware/validateRequest')
 const productSchema = new mongoose.Schema({
     title:{
         type: String,
+        unique : true,
         required: true
     },
     img:{
@@ -36,10 +37,10 @@ const ValidateProduct = (req, res, next) => {
           'string.min': "El título debe ser mayor a 5 caracteres",
           'any.required': "Ingresa el Título"
         }),
-        img: Joi.string().required()
-            .messages({
-          'string.empty': "Sube una imagen",
-        }),
+        // img: Joi.string().required()
+        //     .messages({
+        //   'string.empty': "Sube una imagen",
+        // }),
         price: Joi.number().min(1000).required()
             .messages({
             'number.empty': "Ingresa el precio",
