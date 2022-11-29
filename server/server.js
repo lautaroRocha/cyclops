@@ -10,7 +10,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/Cyclops')
     .catch(error => handleError(error));
 
 app.use(express.json())  
-app.use(express.urlencoded())
+app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 

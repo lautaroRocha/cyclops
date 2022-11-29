@@ -37,11 +37,11 @@ const AdminPanel = () => {
             "type": type.current.value
         };
         console.log(newProduct.img)
-        // sendtoDB(newProduct);
-        // title.current.value = "";
-        // imgLink.current.value = "";
-        // price.current.value = "";
-        // type.current.value= ""
+        sendtoDB(newProduct);
+        title.current.value = "";
+        imgLink.current.value = "";
+        price.current.value = "";
+        type.current.value= ""
     }
 
     function sendtoDB(obj) {
