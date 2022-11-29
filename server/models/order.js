@@ -31,6 +31,11 @@ const orderSchema = new mongoose.Schema({
         type : String,
         required: false,
         default : 'Pending',
+    },
+    date: {
+        type : Object,
+        required: false,
+        default: new Date()
     }
 })
 
