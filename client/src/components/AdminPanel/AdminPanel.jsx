@@ -55,7 +55,7 @@ const AdminPanel = () => {
           .then( (response) => {
             if (!response.ok){
               const res = response.json()
-              .then( (res) => console.log(res))
+              .then( (res) => console.log(res.message))
             }else{
               console.log('ok')
             }
