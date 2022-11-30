@@ -26,7 +26,6 @@ const AdminPanel = () => {
         .then(data => setOrders(data))
     },[])
 
-
     function addNewProduct(e) {
         e.preventDefault();
         const formData  = new FormData();   
@@ -35,10 +34,10 @@ const AdminPanel = () => {
         formData.append("price", parseInt(price.current.value));
         formData.append("type", type.current.value)   
         sendtoDB(formData);
-        // title.current.value = "";
-        // imgLink.current.value = "";
-        // price.current.value = "";
-        // type.current.value= ""
+        title.current.value = "";
+        imgLink.current.value = "";
+        price.current.value = "";
+        type.current.value= ""
     }
 
     function sendtoDB(obj) {
