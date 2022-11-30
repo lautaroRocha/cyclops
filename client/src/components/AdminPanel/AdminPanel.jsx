@@ -18,7 +18,7 @@ const AdminPanel = () => {
         fetch('http://localhost:5000/admin')
         .then(res => res.json())
         .then(data => setProducts(data))
-    },[])
+    },[addNewProduct, removeFromDB])
 
     useEffect(()=>{
         fetch('http://localhost:5000/admin-orders')
@@ -29,18 +29,11 @@ const AdminPanel = () => {
 
     function addNewProduct(e) {
         e.preventDefault();
-        const newProduct = {
-            "title": title.current.value,
-            "img": imgLink.current.files[0],
-            "price": parseInt(price.current.value),
-            "type": type.current.value
-        };
         const formData  = new FormData();   
         formData.append("title",title.current.value)
         formData.append("img", imgLink.current.files[0])
         formData.append("price", parseInt(price.current.value));
         formData.append("type", type.current.value)   
-        console.log(newProduct)
         sendtoDB(formData);
         // title.current.value = "";
         // imgLink.current.value = "";
@@ -56,8 +49,7 @@ const AdminPanel = () => {
           .then( (response) => {
             if (!response.ok){
               const res = response.json()
-              console.log(res)
-            //  .then( (res) => console.log(res.message))
+             .then( (res) => console.log(res.message))
             }else{
               console.log('ok')
             }

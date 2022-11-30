@@ -2,16 +2,23 @@ const {Product} = require('../models/product')
 
 //CREATE
 async function addProduct(req, res){
-    const product = new Product({
+    if (req.file === null) {
+        return res.status(400).send({ message: 'No file was uploaded' });
+    }
+    const url = req.protocol + '://' + req.get('host')
+    const urlImage = url + '/upload/' + req.file.filename;
+    const modelData = {
         title: req.body.title,
-        img : req.body.img,
         price: req.body.price,
+        img: urlImage,
         type: req.body.type,
         quantity: req.body.quantity
-    })
-    product.save();
-    res.json(product);
+        }
+    const products = new Product(modelData);
+    products.save();
+    res.json(products);
 }
+    
 
 //READ
 async function getAllProducts(req, res){
