@@ -1,5 +1,5 @@
-const Admin = require('../models/admin');
 require('dotenv').config()
+const Admin = require('../models/admin');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 
@@ -28,6 +28,6 @@ async function logInUser(req, res){
             res.json({token: jsonToken})
         }
     }
-   
 }   
+
 module.exports = {addAdmin, logInUser};

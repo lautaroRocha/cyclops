@@ -1,7 +1,8 @@
 import React from 'react';
 
 const AdminProductsView = (props) => {
-    
+
+
     return (
         <>
             <form encType='multipart/form-data' >

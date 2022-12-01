@@ -6,8 +6,8 @@ import './adminpanel.css'
 
 const AdminPanel = () => {
 
-    const [view, setView] = useState(null)
     const [products, setProducts] = useState(null)
+    const [view, setView] = useState(null)
     const [orders, setOrders] = useState(null)
     const [changes, setChanges] = useState(false)
     const [loggedUser, setLoggedUser] = useState(false)
@@ -21,21 +21,28 @@ const AdminPanel = () => {
     let selectedView;
 
     useEffect(()=>{
+      if(!token){
+        setProducts(null)
+      }else{
         fetch('http://localhost:5000/admin')
         .then(res => res.json())
         .then(data => setProducts(data))
-    },[changes])
+      }
+    },[token])
 
     useEffect(()=>{
+      if(!token){
+        setOrders(null)
+      }else{
         fetch('http://localhost:5000/admin-orders')
         .then(res => res.json())
         .then(data => setOrders(data))
-    },[changes])
-
+      }
+    },[token])
+    
     function listenToChanges(){
       changes === false ? setChanges(true) : setChanges(false)
     }
-
     function addNewProduct(e) {
         e.preventDefault();
         const formData  = new FormData();   
@@ -50,8 +57,6 @@ const AdminPanel = () => {
         type.current.value= ""
         listenToChanges()
     }
-
-
     function sendtoDB(obj) {
         fetch('http://localhost:5000/admin', { 
             method: 'POST',
@@ -69,7 +74,6 @@ const AdminPanel = () => {
             }
           })
     }
-
 
     function removeFromDB(_id) {
         fetch(`http://localhost:5000/admin/${_id}`, { 
@@ -105,7 +109,6 @@ const AdminPanel = () => {
             }
           })
     }
-
     function logIn(e, obj){
       e.preventDefault()
       fetch('http://localhost:5000/admin/login', { 
@@ -118,12 +121,10 @@ const AdminPanel = () => {
       })
       .then( (response) => {
         if (!response.ok){
-          const res = response.json()
-         .then( (res) => console.log(res.message))
+          response.json().then( (res) => console.log(res.message))
         }else{
           console.log('podés loguearte')
-          const res = response.json()
-          .then( (res) => setToken(res.token))
+          response.json().then( (res) => setToken(res.token))
           setLoggedUser(true)
         }
       })
