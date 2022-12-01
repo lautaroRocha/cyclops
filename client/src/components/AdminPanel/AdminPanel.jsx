@@ -8,6 +8,7 @@ const AdminPanel = () => {
     const [view, setView] = useState(null)
     const [products, setProducts] = useState(null)
     const [orders, setOrders] = useState(null)
+    const [changes, setChanges] = useState(false)
 
     const title = useRef()
     const imgLink = useRef()
@@ -18,14 +19,18 @@ const AdminPanel = () => {
         fetch('http://localhost:5000/admin')
         .then(res => res.json())
         .then(data => setProducts(data))
-    },[addNewProduct, removeFromDB])
+        console.log('efecto')
+    },[changes])
 
     useEffect(()=>{
         fetch('http://localhost:5000/admin-orders')
         .then(res => res.json())
         .then(data => setOrders(data))
-    },[])
+    },[changes])
 
+    function listenToChanges(){
+      changes === false ? setChanges(true) : setChanges(false)
+    }
     function addNewProduct(e) {
         e.preventDefault();
         const formData  = new FormData();   
@@ -38,6 +43,7 @@ const AdminPanel = () => {
         imgLink.current.value = "";
         price.current.value = "";
         type.current.value= ""
+        listenToChanges()
     }
 
     function sendtoDB(obj) {
@@ -64,7 +70,7 @@ const AdminPanel = () => {
               'Content-Type': 'application/json'
             },
           })
-            .then(res => console.log('Elemento borrado de la base de datos'))
+            .then(res => console.log('Elemento borrado de la base de datos'), listenToChanges())
             .catch(err => console.log(err));
     }
 
@@ -85,6 +91,7 @@ const AdminPanel = () => {
               .then( (res) => console.log(res.message))
             }else{
               console.log('ok');
+              listenToChanges()
             }
           })
     }
