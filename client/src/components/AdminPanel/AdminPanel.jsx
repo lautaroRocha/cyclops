@@ -49,6 +49,8 @@ const AdminPanel = () => {
         type.current.value= ""
         listenToChanges()
     }
+
+
     function sendtoDB(obj) {
         fetch('http://localhost:5000/admin', { 
             method: 'POST',
@@ -63,7 +65,9 @@ const AdminPanel = () => {
             }
           })
     }
-    function removeFromDB(_id) {
+
+
+        function removeFromDB(_id) {
         fetch(`http://localhost:5000/admin/${_id}`, { 
             method: 'DELETE',
             headers: {
@@ -98,8 +102,12 @@ const AdminPanel = () => {
 
     function logIn(e, obj){
       e.preventDefault()
-      fetch('hhtp://localhost:5000/admin/login', { 
+      fetch('http://localhost:5000/admin/login', { 
         method: 'POST',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
         body: obj
       })
       .then( (response) => {
@@ -108,6 +116,7 @@ const AdminPanel = () => {
          .then( (res) => console.log(res.message))
         }else{
           console.log('podés loguearte')
+          setLoggedUser(true)
         }
       })
     }

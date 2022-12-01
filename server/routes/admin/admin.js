@@ -11,6 +11,8 @@ adminRouter.post('/',[uploadMulter.single('img'), ValidateProduct], handleProduc
 
 adminRouter.post('/register', handleUsers.addAdmin)
 
+adminRouter.post('/login', handleUsers.logInUser )
+
 adminRouter.patch('/:id/:attr/:value', ValidateRequest, handleProducts.updateOneProduct)
 
 adminRouter.delete('/:id', handleProducts.deleteOneProduct)

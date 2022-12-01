@@ -21,7 +21,7 @@ const AdminLogin = (props) => {
                     password : e.target.value  
                 })}}/>
             </label>
-            <button type='submit' onClick={(e) => {props.logIn(e, userCredentials)}}>INGRESAR</button>
+            <button type='submit' onClick={(e) => {props.logIn(e, JSON.stringify(userCredentials))}}>INGRESAR</button>
         </form>
     );
 }
