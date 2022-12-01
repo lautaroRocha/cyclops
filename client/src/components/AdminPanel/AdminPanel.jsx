@@ -19,7 +19,6 @@ const AdminPanel = () => {
         fetch('http://localhost:5000/admin')
         .then(res => res.json())
         .then(data => setProducts(data))
-        console.log('efecto')
     },[changes])
 
     useEffect(()=>{
@@ -108,7 +107,7 @@ const AdminPanel = () => {
       case "Ordenes":
         selectedView = <AdminOrdersView orders={orders}/>
         break;
-  }
+    } 
     
 
     return (

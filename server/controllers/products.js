@@ -2,21 +2,22 @@ const {Product} = require('../models/product')
 
 //CREATE
 async function addProduct(req, res){
-    if (req.file === null) {
-        return res.status(400).send({ message: 'No file was uploaded' });
+    if (req.file === undefined) {
+        return res.status(400).json({ message: 'Debes subir una foto' });
+    }else{
+        const url = req.protocol + '://' + req.get('host')
+        const urlImage = url + '/upload/' + req.file.filename;
+        const modelData = {
+            title: req.body.title,
+            price: req.body.price,
+            img: urlImage,
+            type: req.body.type,
+            quantity: req.body.quantity
+            }
+        const products = new Product(modelData);
+        products.save();
+        res.json(products);
     }
-    const url = req.protocol + '://' + req.get('host')
-    const urlImage = url + '/upload/' + req.file.filename;
-    const modelData = {
-        title: req.body.title,
-        price: req.body.price,
-        img: urlImage,
-        type: req.body.type,
-        quantity: req.body.quantity
-        }
-    const products = new Product(modelData);
-    products.save();
-    res.json(products);
 }
     
 
