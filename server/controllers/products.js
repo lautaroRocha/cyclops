@@ -2,16 +2,24 @@ const {Product} = require('../models/product')
 
 //CREATE
 async function addProduct(req, res){
-    const product = new Product({
-        title: req.body.title,
-        img : req.body.img,
-        price: req.body.price,
-        type: req.body.type,
-        quantity: req.body.quantity
-    })
-    product.save();
-    res.json(product);
+    if (req.file === undefined) {
+        return res.status(400).json({ message: 'Debes subir una foto' });
+    }else{
+        const url = req.protocol + '://' + req.get('host')
+        const urlImage = url + '/upload/' + req.file.filename;
+        const modelData = {
+            title: req.body.title,
+            price: req.body.price,
+            img: urlImage,
+            type: req.body.type,
+            quantity: req.body.quantity
+            }
+        const products = new Product(modelData);
+        products.save();
+        res.json(products);
+    }
 }
+    
 
 //READ
 async function getAllProducts(req, res){

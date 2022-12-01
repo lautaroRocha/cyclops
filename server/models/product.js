@@ -36,12 +36,10 @@ const ValidateProduct = (req, res, next) => {
           'string.min': "El título debe ser mayor a 5 caracteres",
           'any.required': "Ingresa el Título"
         }),
-        // img: Joi.string().min(5).max(100).required()
-        //     .messages({
-        //   'string.empty': "Sube una imagen",
-        //   'string.min': "El Apellido debe ser mayor a 5 caracteres",
-        //   'any.required': "Sube una imagen"
-        // }),
+        img: Joi.string().required()
+            .messages({
+          'string.empty': "Sube una imagen",
+        }),
         price: Joi.number().min(1000).required()
             .messages({
             'number.empty': "Ingresa el precio",

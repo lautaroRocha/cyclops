@@ -8,6 +8,7 @@ const AdminPanel = () => {
     const [view, setView] = useState(null)
     const [products, setProducts] = useState(null)
     const [orders, setOrders] = useState(null)
+    const [changes, setChanges] = useState(false)
 
     const title = useRef()
     const imgLink = useRef()
@@ -18,44 +19,41 @@ const AdminPanel = () => {
         fetch('http://localhost:5000/admin')
         .then(res => res.json())
         .then(data => setProducts(data))
-    },[sendtoDB, removeFromDB])
+    },[changes])
 
     useEffect(()=>{
         fetch('http://localhost:5000/admin-orders')
         .then(res => res.json())
         .then(data => setOrders(data))
-    },[])
+    },[changes])
 
-
+    function listenToChanges(){
+      changes === false ? setChanges(true) : setChanges(false)
+    }
     function addNewProduct(e) {
         e.preventDefault();
-        const newProduct = {
-            "title": title.current.value,
-            "img": imgLink.current.files,
-            "price": parseInt(price.current.value),
-            "type": type.current.value
-        };
-        // console.log(newProduct.img)
-        sendtoDB(newProduct);
-        // title.current.value = "";
-        // imgLink.current.value = "";
-        // price.current.value = "";
-        // type.current.value= ""
+        const formData  = new FormData();   
+        formData.append("title",title.current.value)
+        formData.append("img", imgLink.current.files[0])
+        formData.append("price", parseInt(price.current.value));
+        formData.append("type", type.current.value)   
+        sendtoDB(formData);
+        title.current.value = "";
+        imgLink.current.value = "";
+        price.current.value = "";
+        type.current.value= ""
+        listenToChanges()
     }
 
     function sendtoDB(obj) {
         fetch('http://localhost:5000/admin', { 
             method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(obj)
+            body: obj
           })
           .then( (response) => {
             if (!response.ok){
               const res = response.json()
-              .then( (res) => console.log(res.message))
+             .then( (res) => console.log(res.message))
             }else{
               console.log('ok')
             }
@@ -71,7 +69,7 @@ const AdminPanel = () => {
               'Content-Type': 'application/json'
             },
           })
-            .then(res => console.log('Elemento borrado de la base de datos'))
+            .then(res => console.log('Elemento borrado de la base de datos'), listenToChanges())
             .catch(err => console.log(err));
     }
 
@@ -92,6 +90,7 @@ const AdminPanel = () => {
               .then( (res) => console.log(res.message))
             }else{
               console.log('ok');
+              listenToChanges()
             }
           })
     }
@@ -108,7 +107,7 @@ const AdminPanel = () => {
       case "Ordenes":
         selectedView = <AdminOrdersView orders={orders}/>
         break;
-  }
+    } 
     
 
     return (
