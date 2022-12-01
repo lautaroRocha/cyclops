@@ -11,6 +11,7 @@ const AdminPanel = () => {
     const [orders, setOrders] = useState(null)
     const [changes, setChanges] = useState(false)
     const [loggedUser, setLoggedUser] = useState(false)
+    const [token, setToken] = useState("")
 
     const title = useRef()
     const imgLink = useRef()
@@ -54,8 +55,11 @@ const AdminPanel = () => {
     function sendtoDB(obj) {
         fetch('http://localhost:5000/admin', { 
             method: 'POST',
-            body: obj
-          })
+            body: obj,
+            headers : {
+              'x-access' : token
+          },
+        })
           .then( (response) => {
             if (!response.ok){
               const res = response.json()
@@ -67,12 +71,13 @@ const AdminPanel = () => {
     }
 
 
-        function removeFromDB(_id) {
+    function removeFromDB(_id) {
         fetch(`http://localhost:5000/admin/${_id}`, { 
             method: 'DELETE',
             headers: {
               'Accept': 'application/json, text/plain, */*',
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'x-access' : token
             },
           })
             .then(res => console.log('Elemento borrado de la base de datos'), listenToChanges())
@@ -86,7 +91,8 @@ const AdminPanel = () => {
             method: 'PATCH',
             headers: {
               'Accept': 'application/json, text/plain, */*',
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'x-access' : token
             },
           })
           .then( (response) => {
@@ -116,6 +122,8 @@ const AdminPanel = () => {
          .then( (res) => console.log(res.message))
         }else{
           console.log('podés loguearte')
+          const res = response.json()
+          .then( (res) => setToken(res.token))
           setLoggedUser(true)
         }
       })

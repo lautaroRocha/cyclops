@@ -1,5 +1,7 @@
 const Admin = require('../models/admin');
+require('dotenv').config()
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 
 
 async function addAdmin(req, res){
@@ -14,15 +16,16 @@ async function addAdmin(req, res){
 
 async function logInUser(req, res){
     const {email, password} = req.body
-    const tryingUser = await Admin.findOne({email : email}).exec()
+    const tryingUser = await Admin.findOne({email : email})
     if(!tryingUser){
-        res.status(404).json({message : "No hay ningun usuario con ese email"})
+        res.status(401).json({message : "No hay ningun usuario con ese email"})
     }else{
         const validPass = bcrypt.compareSync(password, tryingUser.password)
         if(!validPass){
             res.status(401).json({message : "credenciales inválidas"})
         }else{
-            res.json({message: "listo para loguear"})
+            const jsonToken = jwt.sign({tryingUser}, process.env.ACCESS_TOKEN_SECRET);
+            res.json({token: jsonToken})
         }
     }
    
