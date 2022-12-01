@@ -41,7 +41,6 @@ const orderSchema = new mongoose.Schema({
 
 const Order = mongoose.model('orders', orderSchema);
 
-
 const ValidateOrder = (req, res, next) => {
     const schema = Joi.object({
         firstName: Joi.string().min(4).max(100).required()
