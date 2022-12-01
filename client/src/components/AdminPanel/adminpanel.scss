@@ -3,15 +3,27 @@ h2, h3{
 }
 
 form{
+    margin-top: 2rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
+    text-align: center;
     gap: 1rem;
+    label{
+        color: var(--clear);
+    }
     input, select{
         width: 100%;
     }
     #img{
         color: var(--clear);
         font-weight: bolder;
+    }
+    button{
+        margin-inline: auto;
+        &:hover{
+            cursor: pointer;
+        }
     }
 }
 .rep-prod-cont{

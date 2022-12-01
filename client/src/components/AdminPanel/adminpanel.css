@@ -2,14 +2,23 @@ h2, h3 {
   color: white; }
 
 form {
+  margin-top: 2rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
+  text-align: center;
   gap: 1rem; }
+  form label {
+    color: var(--clear); }
   form input, form select {
     width: 100%; }
   form #img {
     color: var(--clear);
     font-weight: bolder; }
+  form button {
+    margin-inline: auto; }
+    form button:hover {
+      cursor: pointer; }
 
 .rep-prod-cont {
   width: 90%;

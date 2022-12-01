@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useRef} from 'react';
 import AdminProductsView from '../../utilities/AdminProductsView/AdminProductsView';
 import AdminOrdersView from '../../utilities/AdminOrdersView/AdminOrdersView';
+import AdminLogin from '../../utilities/AdminLogin/AdminLogin';
 import './adminpanel.css'
 
 const AdminPanel = () => {
@@ -9,11 +10,14 @@ const AdminPanel = () => {
     const [products, setProducts] = useState(null)
     const [orders, setOrders] = useState(null)
     const [changes, setChanges] = useState(false)
+    const [loggedUser, setLoggedUser] = useState(false)
 
     const title = useRef()
     const imgLink = useRef()
     const price = useRef()
     const type = useRef()
+
+    let selectedView;
 
     useEffect(()=>{
         fetch('http://localhost:5000/admin')
@@ -30,6 +34,7 @@ const AdminPanel = () => {
     function listenToChanges(){
       changes === false ? setChanges(true) : setChanges(false)
     }
+
     function addNewProduct(e) {
         e.preventDefault();
         const formData  = new FormData();   
@@ -44,7 +49,6 @@ const AdminPanel = () => {
         type.current.value= ""
         listenToChanges()
     }
-
     function sendtoDB(obj) {
         fetch('http://localhost:5000/admin', { 
             method: 'POST',
@@ -59,8 +63,6 @@ const AdminPanel = () => {
             }
           })
     }
-
-
     function removeFromDB(_id) {
         fetch(`http://localhost:5000/admin/${_id}`, { 
             method: 'DELETE',
@@ -72,7 +74,6 @@ const AdminPanel = () => {
             .then(res => console.log('Elemento borrado de la base de datos'), listenToChanges())
             .catch(err => console.log(err));
     }
-
     function editValue(e){
         const attribute = e.target.id;
        const value = prompt('Ingrese el nuevo valor')
@@ -95,7 +96,6 @@ const AdminPanel = () => {
           })
     }
 
-    let selectedView;
 
     switch(view){
       case "...":
@@ -113,13 +113,17 @@ const AdminPanel = () => {
     return (
         <div className='wrapper'>
             <h2>Panel de Administrador</h2>
+            {loggedUser ? 
+            <>
             <p>seleccioná qué ver y editar</p>
             <select name="" id="" onChange={(e)=>{setView(e.target.value)}}>
                 <option value="..." defaultChecked>...</option>
                 <option value="Productos">Productos</option>
                 <option value="Ordenes">Ordenes</option>
             </select>
-            {selectedView}
+            {selectedView} 
+            </>:
+            <AdminLogin />}
         </div>
     );
 }
