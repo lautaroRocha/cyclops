@@ -96,6 +96,22 @@ const AdminPanel = () => {
           })
     }
 
+    function logIn(e, obj){
+      e.preventDefault()
+      fetch('hhtp://localhost:5000/admin/login', { 
+        method: 'POST',
+        body: obj
+      })
+      .then( (response) => {
+        if (!response.ok){
+          const res = response.json()
+         .then( (res) => console.log(res.message))
+        }else{
+          console.log('podés loguearte')
+        }
+      })
+    }
+
 
     switch(view){
       case "...":
@@ -123,7 +139,7 @@ const AdminPanel = () => {
             </select>
             {selectedView} 
             </>:
-            <AdminLogin />}
+            <AdminLogin logIn={logIn}/>}
         </div>
     );
 }
