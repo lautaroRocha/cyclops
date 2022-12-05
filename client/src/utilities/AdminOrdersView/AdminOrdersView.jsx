@@ -2,7 +2,6 @@ import React from 'react';
 
 const AdminOrdersView = (props) => {
 
-
     return (
         <div className="rep-prod-cont">
             {props.orders !== null ? props.orders.map((ord)=>{

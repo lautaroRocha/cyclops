@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { Link} from "react-router-dom";
 import CartStageOne from "../../utilities/CartStages/cartStageOne";
 import CartStageTwo from "../../utilities/CartStages/cartStageTwo";
+import { Navigate } from "react-router-dom";
 import './cart.css'
 
 function Cart(props){
@@ -14,8 +15,10 @@ function Cart(props){
 
     useEffect(() =>{
         let total = 0
+        if(props.cart){
         props.cart.forEach( (ele) => total = total + (parseInt(ele.price) * parseInt(ele.quantity)) );
         setTotalPrice(total)
+        }
     }, [props.changes])
     
     function updateUserData(e, sec){
@@ -83,14 +86,20 @@ function Cart(props){
                         VOLVER</Link>
             </div>
     }
+
+
     
     return(
         <div className="wrapper">
             <h2>Carrito</h2>
-            {renderStage}
+            {props.cart === undefined ?
+            <Navigate to="/" /> :
+            renderStage
+            }
         <div className="back-img-3"></div>
         <div className="back-img-2"></div>
         </div>
+    
     )
 }
 
