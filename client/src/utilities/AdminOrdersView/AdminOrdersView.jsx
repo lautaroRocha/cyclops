@@ -9,13 +9,14 @@ const AdminOrdersView = (props) => {
                 return(
                 <div className="rep-ord" key={ord._id}>
                     <span>{ord.firstName +" "+ ord.lastName}</span>
-                    <span>{ord.order.length} productos</span>
+                    <span>${ord.order.slice(-1)[0].total}</span>
                     <span>{ord.status}</span>
-                    <p>
-                        {ord.order.map((ele, idx)=>{return(
-                            <p key={idx}>{ele.title}, {ele.quantity}</p>
+                    <span>
+                        {ord.order.map((ele, idx)=>{ 
+                            return(
+                            <p key={idx}>{ele.title} {ele.quantity}</p>
                         )})}
-                    </p>
+                    </span>
                     {ord.status !== "Done" ?
                     <button onClick={()=>{props.updateOrderState(ord._id)}}>ACTUALIZAR ESTADO</button> : 
                     <button onClick={()=>{props.deleteOrder(ord._id)}}>BORRAR ORDEN</button>

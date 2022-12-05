@@ -77,8 +77,7 @@ const ValidateOrder = (req, res, next) => {
                 'array.empty': "No hay productos en su orden",
                 'array.min': "No hay productos en su orden",
                 'any.required': "No hay productos en su orden"
-            }),
-            
+            })        
     });
     validateRequest(req, res, next, schema);
 }
