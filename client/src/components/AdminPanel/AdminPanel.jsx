@@ -39,7 +39,7 @@ const AdminPanel = () => {
         .then(res => res.json())
         .then(data => setOrders(data))
       }
-    },[token])
+    },[token, changes])
     
     function listenToChanges(){
       changes === false ? setChanges(true) : setChanges(false)
@@ -130,6 +130,42 @@ const AdminPanel = () => {
         }
       })
     }
+    function updateOrderState(id){
+      console.log(id)
+      fetch(`http://localhost:5000/admin-orders/${id}`, { 
+          method: 'PATCH',
+          headers : {
+            'x-access' : token
+        },
+      })
+        .then( (response) => {
+          if (!response.ok){
+            const res = response.json()
+           .then( (res) => console.log(res.message))
+          }else{
+            console.log('ok')
+          }
+        })
+      listenToChanges()
+    }
+    function deleteOrder(id){
+      console.log(id)
+      fetch(`http://localhost:5000/admin-orders/${id}`, { 
+          method: 'DELETE',
+          headers : {
+            'x-access' : token
+        },
+      })
+        .then( (response) => {
+          if (!response.ok){
+            const res = response.json()
+           .then( (res) => console.log(res.message))
+          }else{
+            console.log('ok')
+          }
+        })
+      listenToChanges()
+    }
 
 
     switch(view){
@@ -140,7 +176,7 @@ const AdminPanel = () => {
         selectedView = <AdminProductsView addNewProduct={addNewProduct} removeFromDB={removeFromDB} title={title} imgLink={imgLink} price={price} type={type} products={products} editValue={editValue}/>
         break;
       case "Ordenes":
-        selectedView = <AdminOrdersView orders={orders}/>
+        selectedView = <AdminOrdersView orders={orders} updateOrderState={updateOrderState} deleteOrder={deleteOrder}/>
         break;
     } 
     
