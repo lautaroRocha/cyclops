@@ -1,18 +1,24 @@
 const handleProducts = require('../../controllers/products')
 const adminRouter = require('express').Router(); 
 const { ValidateProduct } = require('../../models/product')
+const authenticateToken = require("../../middleware/authenticateToken")
 const ValidateRequest = require('../../middleware/validateRequest')
 const uploadMulter = require("../../config/multerConfig");
+const handleUsers = require("../../controllers/admin")
 
 adminRouter.get('/', handleProducts.getAllProducts)
 
-adminRouter.post('/',[uploadMulter.single('img'), ValidateProduct], handleProducts.addProduct)
+adminRouter.post('/',[authenticateToken, uploadMulter.single('img'), ValidateProduct], handleProducts.addProduct)
 
-adminRouter.patch('/:id/:attr/:value', ValidateRequest, handleProducts.updateOneProduct)
+adminRouter.post('/register', authenticateToken, handleUsers.addAdmin)
 
-adminRouter.delete('/:id', handleProducts.deleteOneProduct)
+adminRouter.post('/login', handleUsers.logInUser )
 
-adminRouter.delete('/:attr/:value', handleProducts.deleteMultipleProducts)
+adminRouter.patch('/:id/:attr/:value', [authenticateToken, ValidateRequest], handleProducts.updateOneProduct)
+
+adminRouter.delete('/:id', authenticateToken, handleProducts.deleteOneProduct)
+
+adminRouter.delete('/:attr/:value', authenticateToken, handleProducts.deleteMultipleProducts)
 
 
 module.exports = adminRouter;

@@ -41,7 +41,6 @@ const orderSchema = new mongoose.Schema({
 
 const Order = mongoose.model('orders', orderSchema);
 
-
 const ValidateOrder = (req, res, next) => {
     const schema = Joi.object({
         firstName: Joi.string().min(4).max(100).required()
@@ -78,8 +77,7 @@ const ValidateOrder = (req, res, next) => {
                 'array.empty': "No hay productos en su orden",
                 'array.min': "No hay productos en su orden",
                 'any.required': "No hay productos en su orden"
-            }),
-            
+            })        
     });
     validateRequest(req, res, next, schema);
 }

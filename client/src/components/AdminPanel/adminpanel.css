@@ -2,14 +2,23 @@ h2, h3 {
   color: white; }
 
 form {
+  margin-top: 2rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
+  text-align: center;
   gap: 1rem; }
+  form label {
+    color: var(--clear); }
   form input, form select {
     width: 100%; }
   form #img {
     color: var(--clear);
     font-weight: bolder; }
+  form button {
+    margin-inline: auto; }
+    form button:hover {
+      cursor: pointer; }
 
 .rep-prod-cont {
   width: 90%;
@@ -20,7 +29,7 @@ form {
   flex-wrap: wrap;
   gap: .5rem; }
 
-.rep-prod {
+.rep-prod, .rep-ord {
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -28,9 +37,9 @@ form {
   text-align: center;
   padding: 1rem;
   border-radius: 25px; }
-  .rep-prod span {
+  .rep-prod span, .rep-ord span {
     position: relative; }
-  .rep-prod #id:before {
+  .rep-prod #id:before, .rep-ord #id:before {
     content: "BORRAR";
     position: absolute;
     left: 0;
@@ -38,14 +47,14 @@ form {
     width: 100%;
     background-color: white;
     display: none; }
-  .rep-prod #id:hover:before {
+  .rep-prod #id:hover:before, .rep-ord #id:hover:before {
     display: block;
     color: red;
     font-weight: bolder;
     cursor: pointer; }
-  .rep-prod #price:before {
+  .rep-prod #price:before, .rep-ord #price:before {
     content: "$"; }
-  .rep-prod #price:after {
+  .rep-prod #price:after, .rep-ord #price:after {
     content: "EDITAR";
     position: absolute;
     left: 0;
@@ -56,10 +65,10 @@ form {
     background-color: white;
     font-weight: bolder;
     display: none; }
-  .rep-prod #price:hover:after {
+  .rep-prod #price:hover:after, .rep-ord #price:hover:after {
     display: block;
     cursor: pointer; }
-  .rep-prod #title:after {
+  .rep-prod #title:after, .rep-ord #title:after {
     content: "EDITAR";
     position: absolute;
     left: 0;
@@ -70,6 +79,8 @@ form {
     background-color: white;
     font-weight: bolder;
     display: none; }
-  .rep-prod #title:hover:after {
+  .rep-prod #title:hover:after, .rep-ord #title:hover:after {
     display: block;
     cursor: pointer; }
+  .rep-prod button, .rep-ord button {
+    margin: auto; }

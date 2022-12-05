@@ -1,32 +1,46 @@
 import React, {useEffect, useState, useRef} from 'react';
 import AdminProductsView from '../../utilities/AdminProductsView/AdminProductsView';
 import AdminOrdersView from '../../utilities/AdminOrdersView/AdminOrdersView';
+import AdminLogin from '../../utilities/AdminLogin/AdminLogin';
 import './adminpanel.css'
 
 const AdminPanel = () => {
 
-    const [view, setView] = useState(null)
     const [products, setProducts] = useState(null)
+    const [view, setView] = useState(null)
     const [orders, setOrders] = useState(null)
     const [changes, setChanges] = useState(false)
+    const [loggedUser, setLoggedUser] = useState(false)
+    const [token, setToken] = useState("")
 
     const title = useRef()
     const imgLink = useRef()
     const price = useRef()
     const type = useRef()
 
+    let selectedView;
+
     useEffect(()=>{
+      if(!token){
+        setProducts(null)
+      }else{
+        console.log('fetching...')
         fetch('http://localhost:5000/admin')
         .then(res => res.json())
         .then(data => setProducts(data))
-    },[changes])
+      }
+    },[token, changes])
 
     useEffect(()=>{
+      if(!token){
+        setOrders(null)
+      }else{
         fetch('http://localhost:5000/admin-orders')
         .then(res => res.json())
         .then(data => setOrders(data))
-    },[changes])
-
+      }
+    },[token, changes])
+    
     function listenToChanges(){
       changes === false ? setChanges(true) : setChanges(false)
     }
@@ -44,12 +58,14 @@ const AdminPanel = () => {
         type.current.value= ""
         listenToChanges()
     }
-
     function sendtoDB(obj) {
         fetch('http://localhost:5000/admin', { 
             method: 'POST',
-            body: obj
-          })
+            body: obj,
+            headers : {
+              'x-access' : token
+          },
+        })
           .then( (response) => {
             if (!response.ok){
               const res = response.json()
@@ -60,19 +76,18 @@ const AdminPanel = () => {
           })
     }
 
-
     function removeFromDB(_id) {
         fetch(`http://localhost:5000/admin/${_id}`, { 
             method: 'DELETE',
             headers: {
               'Accept': 'application/json, text/plain, */*',
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'x-access' : token
             },
           })
             .then(res => console.log('Elemento borrado de la base de datos'), listenToChanges())
             .catch(err => console.log(err));
     }
-
     function editValue(e){
         const attribute = e.target.id;
        const value = prompt('Ingrese el nuevo valor')
@@ -81,7 +96,8 @@ const AdminPanel = () => {
             method: 'PATCH',
             headers: {
               'Accept': 'application/json, text/plain, */*',
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'x-access' : token
             },
           })
           .then( (response) => {
@@ -94,8 +110,63 @@ const AdminPanel = () => {
             }
           })
     }
+    function logIn(e, obj){
+      e.preventDefault()
+      fetch('http://localhost:5000/admin/login', { 
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+        body: obj
+      })
+      .then( (response) => {
+        if (!response.ok){
+          response.json().then( (res) => console.log(res.message))
+        }else{
+          console.log('podés loguearte')
+          response.json().then( (res) => setToken(res.token))
+          setLoggedUser(true)
+        }
+      })
+    }
+    function updateOrderState(id){
+      console.log(id)
+      fetch(`http://localhost:5000/admin-orders/${id}`, { 
+          method: 'PATCH',
+          headers : {
+            'x-access' : token
+        },
+      })
+        .then( (response) => {
+          if (!response.ok){
+            const res = response.json()
+           .then( (res) => console.log(res.message))
+          }else{
+            console.log('ok')
+          }
+        })
+      listenToChanges()
+    }
+    function deleteOrder(id){
+      console.log(id)
+      fetch(`http://localhost:5000/admin-orders/${id}`, { 
+          method: 'DELETE',
+          headers : {
+            'x-access' : token
+        },
+      })
+        .then( (response) => {
+          if (!response.ok){
+            const res = response.json()
+           .then( (res) => console.log(res.message))
+          }else{
+            console.log('ok')
+          }
+        })
+      listenToChanges()
+    }
 
-    let selectedView;
 
     switch(view){
       case "...":
@@ -105,7 +176,7 @@ const AdminPanel = () => {
         selectedView = <AdminProductsView addNewProduct={addNewProduct} removeFromDB={removeFromDB} title={title} imgLink={imgLink} price={price} type={type} products={products} editValue={editValue}/>
         break;
       case "Ordenes":
-        selectedView = <AdminOrdersView orders={orders}/>
+        selectedView = <AdminOrdersView orders={orders} updateOrderState={updateOrderState} deleteOrder={deleteOrder}/>
         break;
     } 
     
@@ -113,13 +184,17 @@ const AdminPanel = () => {
     return (
         <div className='wrapper'>
             <h2>Panel de Administrador</h2>
+            {loggedUser ? 
+            <>
             <p>seleccioná qué ver y editar</p>
             <select name="" id="" onChange={(e)=>{setView(e.target.value)}}>
                 <option value="..." defaultChecked>...</option>
                 <option value="Productos">Productos</option>
                 <option value="Ordenes">Ordenes</option>
             </select>
-            {selectedView}
+            {selectedView} 
+            </>:
+            <AdminLogin logIn={logIn}/>}
         </div>
     );
 }
