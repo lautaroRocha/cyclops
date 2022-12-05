@@ -24,11 +24,12 @@ const AdminPanel = () => {
       if(!token){
         setProducts(null)
       }else{
+        console.log('fetching...')
         fetch('http://localhost:5000/admin')
         .then(res => res.json())
         .then(data => setProducts(data))
       }
-    },[token])
+    },[token, changes])
 
     useEffect(()=>{
       if(!token){
