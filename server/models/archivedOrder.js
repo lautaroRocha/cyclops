@@ -4,7 +4,8 @@ const validateRequest = require('../middleware/validateRequest')
 
 const archivedOrderSchema = new mongoose.Schema({
     client : {
-        type : String
+        type : String,
+        required : true
     }, 
     finished : {
         type : Boolean,

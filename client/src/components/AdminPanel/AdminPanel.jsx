@@ -155,11 +155,15 @@ const AdminPanel = () => {
         order : obj.order
       }
 
+      console.log(archive)
+
       fetch(`http://localhost:5000/admin-archive`, { 
           method: 'POST',
           body : JSON.stringify(archive),
           headers : {
-            'x-access' : token
+            'x-access' : token,
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
         },
       })
         .then( (response) => {
@@ -172,6 +176,28 @@ const AdminPanel = () => {
         })
       listenToChanges()
     }
+    function deleteOrder(id){
+      console.log(id)
+      fetch(`http://localhost:5000/admin-orders/${id}`, { 
+          method: 'DELETE',
+          headers : {
+            'x-access' : token
+        },
+      })
+        .then( (response) => {
+          if (!response.ok){
+            const res = response.json()
+           .then( (res) => console.log(res.message))
+          }else{
+            console.log('ok')
+          }
+        })
+      listenToChanges()
+    }
+    function deleteAndArchiveOrder(obj){
+      archiveOrder(obj)
+      deleteOrder(obj._id)
+    }
 
     switch(view){
       case "...":
@@ -181,7 +207,7 @@ const AdminPanel = () => {
         selectedView = <AdminProductsView addNewProduct={addNewProduct} removeFromDB={removeFromDB} title={title} imgLink={imgLink} price={price} type={type} products={products} editValue={editValue}/>
         break;
       case "Ordenes":
-        selectedView = <AdminOrdersView orders={orders} updateOrderState={updateOrderState} archiveOrder={archiveOrder}/>
+        selectedView = <AdminOrdersView orders={orders} updateOrderState={updateOrderState} deleteAndArchiveOrder={deleteAndArchiveOrder}/>
         break;
     } 
 

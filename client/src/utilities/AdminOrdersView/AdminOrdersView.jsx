@@ -18,7 +18,7 @@ const AdminOrdersView = (props) => {
                     </span>
                     {ord.status !== "Done" ?
                     <button onClick={()=>{props.updateOrderState(ord._id)}}>ACTUALIZAR ESTADO</button> : 
-                    <button onClick={()=>{props.archiveOrder(ord)}}>ARCHIVAR ORDEN</button>
+                    <button onClick={()=>{props.deleteAndArchiveOrder(ord)}}>ARCHIVAR ORDEN</button>
                     }
                     <span>{ord._id}</span>
                 </div>
