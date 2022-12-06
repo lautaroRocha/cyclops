@@ -148,10 +148,16 @@ const AdminPanel = () => {
         })
       listenToChanges()
     }
-    function deleteOrder(id){
-      console.log(id)
-      fetch(`http://localhost:5000/admin-orders/${id}`, { 
-          method: 'DELETE',
+    function archiveOrder(obj){
+
+      const archive = {
+        client : obj.firstName + " " + obj.lastName,
+        order : obj.order
+      }
+
+      fetch(`http://localhost:5000/admin-archive`, { 
+          method: 'POST',
+          body : JSON.stringify(archive),
           headers : {
             'x-access' : token
         },
@@ -161,7 +167,7 @@ const AdminPanel = () => {
             const res = response.json()
            .then( (res) => console.log(res.message))
           }else{
-            console.log('ok')
+            console.log(response)
           }
         })
       listenToChanges()
@@ -175,7 +181,7 @@ const AdminPanel = () => {
         selectedView = <AdminProductsView addNewProduct={addNewProduct} removeFromDB={removeFromDB} title={title} imgLink={imgLink} price={price} type={type} products={products} editValue={editValue}/>
         break;
       case "Ordenes":
-        selectedView = <AdminOrdersView orders={orders} updateOrderState={updateOrderState} deleteOrder={deleteOrder}/>
+        selectedView = <AdminOrdersView orders={orders} updateOrderState={updateOrderState} archiveOrder={archiveOrder}/>
         break;
     } 
 
