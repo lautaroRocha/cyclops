@@ -167,7 +167,6 @@ const AdminPanel = () => {
       listenToChanges()
     }
 
-
     switch(view){
       case "...":
         selectedView = <></>
@@ -179,7 +178,6 @@ const AdminPanel = () => {
         selectedView = <AdminOrdersView orders={orders} updateOrderState={updateOrderState} deleteOrder={deleteOrder}/>
         break;
     } 
-    
 
     return (
         <div className='wrapper'>
