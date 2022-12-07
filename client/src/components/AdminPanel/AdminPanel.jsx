@@ -2,6 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import AdminProductsView from '../../utilities/AdminProductsView/AdminProductsView';
 import AdminOrdersView from '../../utilities/AdminOrdersView/AdminOrdersView';
 import AdminLogin from '../../utilities/AdminLogin/AdminLogin';
+import AdminArchivedOrders from '../../utilities/AdminArchive/AdminArchivedOrders';
 import './adminpanel.css'
 
 const AdminPanel = () => {
@@ -9,6 +10,7 @@ const AdminPanel = () => {
     const [products, setProducts] = useState(null)
     const [view, setView] = useState(null)
     const [orders, setOrders] = useState(null)
+    const [archivedOrders, setArchivedOrders] = useState(null)
     const [changes, setChanges] = useState(false)
     const [loggedUser, setLoggedUser] = useState(false)
     const [token, setToken] = useState("")
@@ -39,6 +41,21 @@ const AdminPanel = () => {
         .then(res => res.json())
         .then(data => setOrders(data))
       }
+    },[token, changes])
+
+    useEffect(()=>{
+      if(!token){
+        setArchivedOrders(null)
+      }else{
+        fetch('http://localhost:5000/admin-archive', {
+          headers : {
+            'x-access' : token
+          }
+        })
+        .then(res => res.json())
+        .then(data => setArchivedOrders(data))
+      }
+      console.log(archivedOrders)
     },[token, changes])
     
     function listenToChanges(){
@@ -148,6 +165,34 @@ const AdminPanel = () => {
         })
       listenToChanges()
     }
+    function archiveOrder(obj){
+
+      const archive = {
+        client : obj.firstName + " " + obj.lastName,
+        order : obj.order
+      }
+
+      console.log(archive)
+
+      fetch(`http://localhost:5000/admin-archive`, { 
+          method: 'POST',
+          body : JSON.stringify(archive),
+          headers : {
+            'x-access' : token,
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        },
+      })
+        .then( (response) => {
+          if (!response.ok){
+            const res = response.json()
+           .then( (res) => console.log(res.message))
+          }else{
+            console.log(response)
+          }
+        })
+      listenToChanges()
+    }
     function deleteOrder(id){
       console.log(id)
       fetch(`http://localhost:5000/admin-orders/${id}`, { 
@@ -166,7 +211,10 @@ const AdminPanel = () => {
         })
       listenToChanges()
     }
-
+    function deleteAndArchiveOrder(obj){
+      archiveOrder(obj)
+      deleteOrder(obj._id)
+    }
 
     switch(view){
       case "...":
@@ -176,10 +224,12 @@ const AdminPanel = () => {
         selectedView = <AdminProductsView addNewProduct={addNewProduct} removeFromDB={removeFromDB} title={title} imgLink={imgLink} price={price} type={type} products={products} editValue={editValue}/>
         break;
       case "Ordenes":
-        selectedView = <AdminOrdersView orders={orders} updateOrderState={updateOrderState} deleteOrder={deleteOrder}/>
+        selectedView = <AdminOrdersView orders={orders} updateOrderState={updateOrderState} deleteAndArchiveOrder={deleteAndArchiveOrder}/>
         break;
+      case "Archivo":
+          selectedView = <AdminArchivedOrders archivedOrders={archivedOrders}/>
+          break;
     } 
-    
 
     return (
         <div className='wrapper'>
@@ -191,6 +241,7 @@ const AdminPanel = () => {
                 <option value="..." defaultChecked>...</option>
                 <option value="Productos">Productos</option>
                 <option value="Ordenes">Ordenes</option>
+                <option value="Archivo">Archivo</option>
             </select>
             {selectedView} 
             </>:
