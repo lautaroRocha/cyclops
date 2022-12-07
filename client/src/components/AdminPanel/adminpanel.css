@@ -36,7 +36,8 @@ form {
   color: black;
   text-align: center;
   padding: 1rem;
-  border-radius: 25px; }
+  border-radius: 25px;
+  min-height: 13rem; }
   .rep-prod span, .rep-ord span {
     position: relative; }
   .rep-prod #id:before, .rep-ord #id:before {

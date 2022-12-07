@@ -4,4 +4,7 @@ const authenticateToken = require('../../middleware/authenticateToken')
 
 archivedRouter.post('/', authenticateToken, handleArchive.archiveOrder)
 
+archivedRouter.get('/', authenticateToken, handleArchive.getArchive)
+
+
 module.exports = archivedRouter;

@@ -9,6 +9,7 @@ const AdminPanel = () => {
     const [products, setProducts] = useState(null)
     const [view, setView] = useState(null)
     const [orders, setOrders] = useState(null)
+    const [archivedOrders, setArchivedOrders] = useState(null)
     const [changes, setChanges] = useState(false)
     const [loggedUser, setLoggedUser] = useState(false)
     const [token, setToken] = useState("")
@@ -28,6 +29,16 @@ const AdminPanel = () => {
         fetch('http://localhost:5000/admin')
         .then(res => res.json())
         .then(data => setProducts(data))
+      }
+    },[token, changes])
+
+    useEffect(()=>{
+      if(!token){
+        setOrders(null)
+      }else{
+        fetch('http://localhost:5000/admin-orders')
+        .then(res => res.json())
+        .then(data => setOrders(data))
       }
     },[token, changes])
 
@@ -221,6 +232,7 @@ const AdminPanel = () => {
                 <option value="..." defaultChecked>...</option>
                 <option value="Productos">Productos</option>
                 <option value="Ordenes">Ordenes</option>
+                <option value="Archivo">Archivo</option>
             </select>
             {selectedView} 
             </>:
