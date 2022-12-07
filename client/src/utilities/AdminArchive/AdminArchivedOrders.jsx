@@ -8,7 +8,7 @@ const AdminArchivedOrders = (props) => {
                 <div className="rep-ord" key={ord._id}>
                     <span>{ord.client}</span>
                     <span>${ord.order.slice(-1)[0].total}</span>
-                    <span>{ord.status}</span>
+                    <span>{ord.date.slice(0, 10)}</span>
                     <span>
                         {ord.order.map((ele, idx)=>{ 
                             return(
