@@ -17,7 +17,7 @@ async function archiveOrder(req, res){
 async function getArchive(req, res){
     try{
         const archivedOrders = await archivedOrder.find()
-        res.status(201).json({archive : archivedOrders})
+        res.status(201).json(archivedOrders)
     }catch(err){
         res.json({message : err.message})
     }

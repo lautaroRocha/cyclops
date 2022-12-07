@@ -3,10 +3,10 @@ import React from 'react';
 const AdminArchivedOrders = (props) => {
     return (
         <div className="rep-prod-cont">
-            {props.orders !== null ? props.orders.map((ord)=>{
+            {props.archivedOrders !== null ? props.archivedOrders.map((ord)=>{
                 return(
                 <div className="rep-ord" key={ord._id}>
-                    <span>{ord.firstName +" "+ ord.lastName}</span>
+                    <span>{ord.client}</span>
                     <span>${ord.order.slice(-1)[0].total}</span>
                     <span>{ord.status}</span>
                     <span>

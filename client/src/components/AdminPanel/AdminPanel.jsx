@@ -2,6 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import AdminProductsView from '../../utilities/AdminProductsView/AdminProductsView';
 import AdminOrdersView from '../../utilities/AdminOrdersView/AdminOrdersView';
 import AdminLogin from '../../utilities/AdminLogin/AdminLogin';
+import AdminArchivedOrders from '../../utilities/AdminArchive/AdminArchivedOrders';
 import './adminpanel.css'
 
 const AdminPanel = () => {
@@ -44,12 +45,17 @@ const AdminPanel = () => {
 
     useEffect(()=>{
       if(!token){
-        setOrders(null)
+        setArchivedOrders(null)
       }else{
-        fetch('http://localhost:5000/admin-orders')
+        fetch('http://localhost:5000/admin-archive', {
+          headers : {
+            'x-access' : token
+          }
+        })
         .then(res => res.json())
-        .then(data => setOrders(data))
+        .then(data => setArchivedOrders(data))
       }
+      console.log(archivedOrders)
     },[token, changes])
     
     function listenToChanges(){
@@ -220,6 +226,9 @@ const AdminPanel = () => {
       case "Ordenes":
         selectedView = <AdminOrdersView orders={orders} updateOrderState={updateOrderState} deleteAndArchiveOrder={deleteAndArchiveOrder}/>
         break;
+      case "Archivo":
+          selectedView = <AdminArchivedOrders archivedOrders={archivedOrders}/>
+          break;
     } 
 
     return (
