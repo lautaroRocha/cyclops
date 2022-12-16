@@ -1,13 +1,36 @@
+
+
+
 h2, h3{
     color: white;
 }
+h2{
+    margin-bottom: 2rem;
+    text-align: center;
+}
 
 form{
+    margin-top: 2rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
+    text-align: center;
     gap: 1rem;
+    label{
+        color: var(--clear);
+    }
     input, select{
         width: 100%;
+    }
+    #img{
+        color: var(--clear);
+        font-weight: bolder;
+    }
+    button{
+        margin-inline: auto;
+        &:hover{
+            cursor: pointer;
+        }
     }
 }
 .rep-prod-cont{
@@ -20,15 +43,16 @@ form{
     gap: .5rem;
 
 }
-.rep-prod{
+.rep-prod, .rep-ord{
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     background-color: white;
     color: black;
     text-align: center;
-    width: fit-content;
     padding: 1rem;
     border-radius: 25px;
+    min-height: 13rem;
     span{
         position: relative;
     }
@@ -67,5 +91,53 @@ form{
         display: block;
         cursor: pointer;
     }
+    }
+    #title{
+        &:after{
+           content: "EDITAR";
+           position: absolute;
+           left: 0;
+           right: 0;
+           top: 0;
+           width: 100%;
+           color: green;
+           background-color: white;
+           font-weight: bolder;
+           display: none;
+       }
+       &:hover:after{
+           display: block;
+           cursor: pointer;
+       }
+    }
+    button{
+        margin: auto;
+    }
 }
+.admin{
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
 }
+.admin-welcome{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: 40vw;
+    max-width: 300px;
+    height: 40vh;
+    max-height: 150px;
+    border-radius: 50% 35px;
+    transform:rotate(-15deg);
+    margin-top: 5rem;    
+}
+h4{
+    font-size: clamp(.9rem, 5vw, 1.7rem);
+    color: var(--clear);
+    width: 60%;
+    text-align: center;
+    position: absolute;
+    top: 60vh;
+}
+

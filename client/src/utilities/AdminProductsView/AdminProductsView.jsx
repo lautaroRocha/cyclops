@@ -1,16 +1,17 @@
 import React from 'react';
 
 const AdminProductsView = (props) => {
-    
+
+
     return (
         <>
-            <form >
+            <form encType='multipart/form-data' >
                 <h3>Nuevo Producto</h3>
                 <label htmlFor="title">
                     <input type="text" name='title' ref={props.title} placeholder="Nombre.."/>
                 </label>
                 <label htmlFor="img-link">
-                    <input type="file" name="img-link" ref={props.imgLink} placeholder="Imagen del product"/>
+                    <input type="file" name="img-link" id="img" ref={props.imgLink} placeholder="Imagen del product"/>
                 </label>
                 <label htmlFor="price">
                     <input type="number" name="price"ref={props.price} placeholder="Precio..."/>
@@ -31,7 +32,7 @@ const AdminProductsView = (props) => {
             {props.products !== null ? props.products.map((prod)=>{
                 return(
                 <div className="rep-prod" key={prod._id}>
-                    <span>{prod.title}</span>
+                    <span id="title" onClick={(e)=>{props.editValue(e)}}>{prod.title}</span>
                     <span id="price" onClick={(e)=>{props.editValue(e)}}>{prod.price}</span>
                     <span>{prod.type}</span>
                     <span id="id" onClick={(e)=>{props.removeFromDB(e.target.textContent)}}>{prod._id}</span>

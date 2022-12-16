@@ -1,21 +1,25 @@
-const Product = require('../models/product')
+const {Product} = require('../models/product')
 
 //CREATE
 async function addProduct(req, res){
-    const product = new Product({
-        title: req.body.title,
-        img : req.body.img,
-        price: req.body.price,
-        type: req.body.type,
-        quantity: req.body.quantity
-    })
-    try{
-        const newProduct = await product.save()
-        res.status(201).json({newProduct : newProduct})
-    }catch (err){
-        res.status(400).json({message : err.message})
+    if (req.file === undefined) {
+        return res.status(400).json({ message: 'Debes subir una foto' });
+    }else{
+        const url = req.protocol + '://' + req.get('host')
+        const urlImage = url + '/upload/' + req.file.filename;
+        const modelData = {
+            title: req.body.title,
+            price: req.body.price,
+            img: urlImage,
+            type: req.body.type,
+            quantity: req.body.quantity
+            }
+        const products = new Product(modelData);
+        products.save();
+        res.json(products);
     }
 }
+    
 
 //READ
 async function getAllProducts(req, res){
@@ -51,13 +55,29 @@ async function updateOneProduct(req, res){
     const id = req.params.id;
     const editAttribute = req.params.attr
     const newValue = req.params.value
-    try{
-        await Product.updateOne({_id: id}, {[editAttribute] : newValue})
-        res.json({ message: 'Producto editado'})
-    }catch(err){
-        res.json({message : err.message})
+    if(editAttribute !== "price"){
+        if(newValue.length > 5){
+            try{
+                await Product.updateOne({_id: id}, {[editAttribute] : newValue})
+                res.json({ message: 'Producto editado'})
+            }catch(err){
+                res.status(400).json({message : err.message})
+            }
+            }else{
+                res.status(400).json({message :'El nombre debe tener como mínimo 5 caracteres'})
+            }
+    }else{
+        if(newValue > 1000){
+            try{
+                await Product.updateOne({_id: id}, {[editAttribute] : newValue})
+                res.json({ message: 'Producto editado'})
+            }catch(err){
+                res.status(400).json({message : err.message})
+            }
+        }else{
+            res.status(400).json({message : 'El precio mínimo es de $1000'})
+        }
     }
-  
 }
 
 //DELETE
@@ -67,7 +87,7 @@ async function deleteOneProduct(req, res) {
         await Product.remove({ _id: id });
         res.json({ 'message': 'Datos Eliminados' });
     }catch(err){
-        res.json({message : err.message})
+        res.status(404).json({message : err.message})
     }
    
 }
@@ -79,7 +99,7 @@ async function deleteMultipleProducts(req, res){
         await Product.deleteMany({[attribute] : value})
         res.json({ message: 'Productos eliminados'})
     }catch(err){
-        res.json({message : err.message})
+        res.status(400).json({message : err.message})
     }
 }
 

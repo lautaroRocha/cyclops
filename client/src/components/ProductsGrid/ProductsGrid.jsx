@@ -1,8 +1,9 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useState, useEffect} from "react";
 import Card from "../../utilities/Card/Card";
 import ProductsFilter from "../ProductsFilter/ProductsFilter";
 import './products.css'
 import { ProductsContext } from "../../App";
+import { Navigate } from "react-router-dom";
 
 
 function ProductsGrid(){
@@ -31,11 +32,15 @@ function ProductsGrid(){
                 <ProductsFilter className="products-filter" filterProducts={filterProducts} filterProductsByText={filterProductsByText} setSelectedProducts={setSelectedProducts}/>
                 <input type="text" onChange={filterProductsByText} placeholder="🔎 Buscá por nombre..."/>
                 <div className="products-container">
-                {selectedProducts.map( (obj, idx) => {
+                {selectedProducts === undefined ?
+                <Navigate to="/"/>
+                :
+                selectedProducts.map( (obj, idx) => {
                     return(
                         <Card obj={obj} key={idx} />
                     )} 
-                )}
+                )
+                }
                 </div>
             </div>
             <div className="back-img-5"></div>

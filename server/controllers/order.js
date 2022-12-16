@@ -1,5 +1,6 @@
-const Order = require('../models/order');
+const {Order} = require('../models/order');
 
+const orderStates = ["Pending", "Preparing", "Mailed", "Done"]
 
 async function getOrders(req, res){
     try{
@@ -28,14 +29,38 @@ async function sendOrder(req, res){
 }
 
 async function setOrderState(req, res){
-    const orderId = req.body.id;
-    try{
-        await Order.findByIdAndUpdate({_id: orderId}, { status : "asdasdasd"})
-        res.json({ message: 'Orden actualizada'});
-        }
-    catch(err){
-        res.json({message : err.message})
+    const orderId = req.params.id;
+    const targetedOrder = await Order.findOne({_id: orderId});
+    switch(targetedOrder.status){
+        case "Pending":
+            try{
+                await Order.findByIdAndUpdate({_id: orderId}, { status : orderStates[1]})
+                res.json({ message: 'Orden actualizada'});
+                }
+            catch(err){
+                res.json({message : err.message})
+            }
+            break;
+        case "Preparing":
+            try{
+                await Order.findByIdAndUpdate({_id: orderId}, { status : orderStates[2]})
+                res.json({ message: 'Orden actualizada'});
+                }
+            catch(err){
+                res.json({message : err.message})
+            }
+            break;
+        case "Mailed":
+            try{
+                await Order.findByIdAndUpdate({_id: orderId}, { status : orderStates[3]})
+                res.json({ message: 'Orden actualizada'});
+                }
+            catch(err){
+                res.json({message : err.message})
+            }
+            break;
     }
+    
 }
 
 async function deleteOrder(req, res){
