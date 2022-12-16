@@ -4,6 +4,8 @@ import AdminOrdersView from '../../utilities/AdminOrdersView/AdminOrdersView';
 import AdminLogin from '../../utilities/AdminLogin/AdminLogin';
 import AdminArchivedOrders from '../../utilities/AdminArchive/AdminArchivedOrders';
 import './adminpanel.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminPanel = () => {
 
@@ -86,7 +88,7 @@ const AdminPanel = () => {
           .then( (response) => {
             if (!response.ok){
               const res = response.json()
-             .then( (res) => console.log(res.message))
+             .then( (res) => toast.error(res.message))
             }else{
               console.log('ok')
             }
@@ -139,10 +141,12 @@ const AdminPanel = () => {
       })
       .then( (response) => {
         if (!response.ok){
-          response.json().then( (res) => console.log(res.message))
+          response.json().then( (res) => toast.error(res.message))
         }else{
           console.log('podés loguearte')
-          response.json().then( (res) => setToken(res.token))
+          response.json().then( (res) => {
+            toast.info('Bienvenido ')
+            setToken(res.token)})
           setLoggedUser(true)
         }
       })
@@ -218,7 +222,13 @@ const AdminPanel = () => {
 
     switch(view){
       case "...":
-        selectedView = <></>
+        selectedView = <>
+        <div className="admin">
+        <div className='admin-welcome glass'>
+        </div>
+            <h4>Seleccioná gestionar tus productos, ver tus órdenes pendientes o tu archivo de órdenes</h4>
+          </div>
+        </>
         break;
       case "Productos":
         selectedView = <AdminProductsView addNewProduct={addNewProduct} removeFromDB={removeFromDB} title={title} imgLink={imgLink} price={price} type={type} products={products} editValue={editValue}/>
@@ -236,7 +246,6 @@ const AdminPanel = () => {
             <h2>Panel de Administrador</h2>
             {loggedUser ? 
             <>
-            <p>seleccioná qué ver y editar</p>
             <select name="" id="" onChange={(e)=>{setView(e.target.value)}}>
                 <option value="..." defaultChecked>...</option>
                 <option value="Productos">Productos</option>
@@ -246,6 +255,18 @@ const AdminPanel = () => {
             {selectedView} 
             </>:
             <AdminLogin logIn={logIn}/>}
+            <ToastContainer
+              position="top-right"
+              autoClose={2500}
+              hideProgressBar={true}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored"
+              />
         </div>
     );
 }
