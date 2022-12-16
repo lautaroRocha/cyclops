@@ -218,7 +218,13 @@ const AdminPanel = () => {
 
     switch(view){
       case "...":
-        selectedView = <></>
+        selectedView = <>
+        <div className="admin">
+        <div className='admin-welcome glass'>
+        </div>
+            <h4>Seleccioná gestionar tus productos, ver tus órdenes pendientes o tu archivo de órdenes</h4>
+          </div>
+        </>
         break;
       case "Productos":
         selectedView = <AdminProductsView addNewProduct={addNewProduct} removeFromDB={removeFromDB} title={title} imgLink={imgLink} price={price} type={type} products={products} editValue={editValue}/>
@@ -236,7 +242,6 @@ const AdminPanel = () => {
             <h2>Panel de Administrador</h2>
             {loggedUser ? 
             <>
-            <p>seleccioná qué ver y editar</p>
             <select name="" id="" onChange={(e)=>{setView(e.target.value)}}>
                 <option value="..." defaultChecked>...</option>
                 <option value="Productos">Productos</option>
