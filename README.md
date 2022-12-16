@@ -6,3 +6,5 @@ This project has not been deployed and runs on a local database. Clone the repo 
 
 
 In root, run npm start to serve both the server and the client.
+
+Learn more about this project on https://lautaro-rocha.web.app/
