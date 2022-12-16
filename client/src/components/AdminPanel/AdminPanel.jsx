@@ -4,6 +4,8 @@ import AdminOrdersView from '../../utilities/AdminOrdersView/AdminOrdersView';
 import AdminLogin from '../../utilities/AdminLogin/AdminLogin';
 import AdminArchivedOrders from '../../utilities/AdminArchive/AdminArchivedOrders';
 import './adminpanel.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminPanel = () => {
 
@@ -86,7 +88,7 @@ const AdminPanel = () => {
           .then( (response) => {
             if (!response.ok){
               const res = response.json()
-             .then( (res) => console.log(res.message))
+             .then( (res) => toast.error(res.message))
             }else{
               console.log('ok')
             }
@@ -139,10 +141,12 @@ const AdminPanel = () => {
       })
       .then( (response) => {
         if (!response.ok){
-          response.json().then( (res) => console.log(res.message))
+          response.json().then( (res) => toast.error(res.message))
         }else{
           console.log('podés loguearte')
-          response.json().then( (res) => setToken(res.token))
+          response.json().then( (res) => {
+            toast.info('Bienvenido ')
+            setToken(res.token)})
           setLoggedUser(true)
         }
       })
@@ -251,6 +255,18 @@ const AdminPanel = () => {
             {selectedView} 
             </>:
             <AdminLogin logIn={logIn}/>}
+            <ToastContainer
+              position="top-right"
+              autoClose={2500}
+              hideProgressBar={true}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored"
+              />
         </div>
     );
 }
